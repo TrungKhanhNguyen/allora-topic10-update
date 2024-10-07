@@ -21,7 +21,7 @@ def fetch_prices_from_defined(symbol_address, limit: int):
         # Define the parameters for the token data request
         network = "base"
         token_address = symbol_address
-        apikey = "CG-ti78Sdc2ixAm9sThFefiRMNx"
+        apikey = "CG-1EU1cAnJdfWCsvCWKPeyjxNS"
         
         # Construct the API URL for the token data
         token_url = f"https://api.geckoterminal.com/api/v2/networks/{network}/tokens/{token_address}"
