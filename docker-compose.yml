@@ -1,0 +1,35 @@
+services:
+  inference:
+    container_name: allora-inference-10
+    build:
+      context: .
+    command: python -u /app/app.py
+    ports:
+      - "8011:8011"
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://localhost:8011/inference/ETH"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8011/healthcheck || exit 1 "]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 300s
+    volumes:
+      - ./inference-data:/app/data
+
+    
+  worker:
+    container_name: allora-worker-10
+    image: alloranetwork/allora-offchain-node:latest
+    volumes:
+      - ./worker-data:/data
+    working_dir: /data
+    depends_on:
+      inference:
+        condition: service_healthy
+    env_file:
+      - ./worker-data/env_file
+    entrypoint: ["/node/allora_offchain_node"]
+
+volumes:
+  inference-data:
+  worker-data:
