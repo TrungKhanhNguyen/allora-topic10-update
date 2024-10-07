@@ -7,7 +7,7 @@ from config import data_base_path
 import random
 import requests
 import retrying
-
+from statsmodels.tsa.arima.model import ARIMA
 forecast_price = {}
 
 binance_data_path = os.path.join(data_base_path, "binance/futures-klines")
@@ -178,15 +178,14 @@ def train_model(token):
     y = df['close'].values  # Sử dụng giá đóng cửa làm mục tiêu
 
     # Khởi tạo mô hình Linear Regression
-    model = SVR(kernel='rbf')
-    model.fit(X, y)  # Huấn luyện mô hình
+    model = ARIMA(y,order=(1, 1, 1))
+    model_fit = model.fit()
 
-    # Dự đoán giá tiếp theo
-    next_time_index = np.array([[len(df)]])  # Giá trị thời gian tiếp theo
-    predicted_price = model.predict(next_time_index)[0]  # Dự đoán giá
+    forecast = model_fit.forecast(steps=1)
+    predicted_price = forecast[0]
 
     # Xác định khoảng dao động xung quanh giá dự đoán
-    fluctuation_range = 0.001 * predicted_price  # Lấy 0.1% của giá dự đoán làm khoảng dao động
+    fluctuation_range = 0.01 * predicted_price  # Lấy 0.1% của giá dự đoán làm khoảng dao động
     min_price = predicted_price - fluctuation_range
     max_price = predicted_price + fluctuation_range
     #
