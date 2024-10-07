@@ -20,7 +20,7 @@ def get_meme_coin_token(block_height):
     upshot_url = f"https://api.upshot.xyz/v2/allora/tokens-oracle/token/{block_height}"
     headers = {
         "accept": "application/json",
-        "x-api-key": "UP-9d2ac0fea0a244fda624db9c"  # replace with your API key
+        "x-api-key": "UP-4b008a1aaf194a27b65dcf15"  # replace with your API key
     }
 
     response = requests.get(upshot_url, headers=headers)
