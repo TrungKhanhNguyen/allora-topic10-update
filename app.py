@@ -32,7 +32,7 @@ def get_inference(token_or_block_height):
             url = f"{base_url}{current_token}&vs_currencies=usd"
             headers = {
             "accept": "application/json",
-            "x-cg-demo-api-key": "API"  # replace with your API key
+            "x-cg-demo-api-key": "CG-fn5Dnv5ujTE8SoQvQP5APwDu"  # replace with your API key
             }
 
             response = requests.get(url, headers=headers)
