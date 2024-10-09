@@ -178,16 +178,16 @@ def train_model(token):
     y = df['close'].values  # Sử dụng giá đóng cửa làm mục tiêu
 
     # Khởi tạo mô hình Linear Regression
-    #model = ARIMA(y,order=(1, 1, 1))
-    #model_fit = model.fit()
+    model = ARIMA(y,order=(1, 1, 1))
+    model_fit = model.fit()
 
-    #forecast = model_fit.forecast(steps=1)
-    #predicted_price = forecast[0]
-    model = SVR(kernel='rbf')
-    model.fit(X, y)
+    forecast = model_fit.forecast(steps=1)
+    predicted_price = forecast[0]
+    #model = SVR(kernel='rbf')
+    #model.fit(X, y)
 
-    next_time_index = np.array([[len(df)]])  # Giá trị thời gian tiếp theo
-    predicted_price = model.predict(next_time_index)[0]  # Dự đoán giá
+    #next_time_index = np.array([[len(df)]])  # Giá trị thời gian tiếp theo
+    #predicted_price = model.predict(next_time_index)[0]  # Dự đoán giá
 
     # Xác định khoảng dao động xung quanh giá dự đoán
     fluctuation_range = 0.001 * predicted_price  # Lấy 0.1% của giá dự đoán làm khoảng dao động
