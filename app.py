@@ -29,7 +29,7 @@ def get_inference(token_or_block_height):
         name_coin = get_meme_coin_token(token_or_block_height)
         try:
             base_url = "https://api.coingecko.com/api/v3/simple/price?ids="
-            url = f"{base_url}{current_token}&vs_currencies=usd"
+            url = f"{base_url}{name_coin}&vs_currencies=usd"
             headers = {
             "accept": "application/json",
             "x-cg-demo-api-key": "CG-ti78Sdc2ixAm9sThFefiRMNx"  # replace with your API key
@@ -38,7 +38,7 @@ def get_inference(token_or_block_height):
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
                 data = response.json()
-                tempValue = str(data[token_id]["usd"])
+                tempValue = str(data[name_coin]["usd"])
                 
                 current_price = float(tempValue)
                 adjustment_factor = random.uniform(0.99, 1.01)
