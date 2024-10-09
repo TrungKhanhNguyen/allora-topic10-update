@@ -21,7 +21,7 @@ def fetch_prices_from_defined(symbol_address, limit: int):
         # Define the parameters for the token data request
         network = "base"
         token_address = symbol_address
-        apikey = "CG-HXp3Hpa2FJ3pvzHsr3MC28Gn"
+        apikey = "CGAPIKEY"
         
         # Construct the API URL for the token data
         token_url = f"https://api.geckoterminal.com/api/v2/networks/{network}/tokens/{token_address}"
@@ -190,7 +190,7 @@ def train_model(token):
     predicted_price = model.predict(next_time_index)[0]  # Dự đoán giá
 
     # Xác định khoảng dao động xung quanh giá dự đoán
-    fluctuation_range = 0.004 * predicted_price  # Lấy 0.1% của giá dự đoán làm khoảng dao động
+    fluctuation_range = 0.001 * predicted_price  # Lấy 0.1% của giá dự đoán làm khoảng dao động
     min_price = predicted_price - fluctuation_range
     max_price = predicted_price + fluctuation_range
     #
